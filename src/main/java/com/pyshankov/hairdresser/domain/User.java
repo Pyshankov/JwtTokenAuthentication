@@ -26,7 +26,7 @@ public class User implements java.io.Serializable {
     @Column(name = "isActivated",nullable = false)
     private boolean isActivated;
 
-
+    private long accountId;
 
     public User(String userName, String password){
         this.userName=userName;
@@ -76,6 +76,14 @@ public class User implements java.io.Serializable {
 
     public void setActivated(boolean activated) {
         isActivated = activated;
+    }
+
+    public long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccount(long accountId) {
+        this.accountId = accountId;
     }
 
     public enum Role{
