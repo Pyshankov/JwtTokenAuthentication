@@ -9,6 +9,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Location {
 
+    Location(){}
+
     @Column
     private String longitude;
 
