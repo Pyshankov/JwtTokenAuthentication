@@ -11,4 +11,6 @@ public interface Account {
 
     String getFullName();
 
+    Location getLocation();
+
 }

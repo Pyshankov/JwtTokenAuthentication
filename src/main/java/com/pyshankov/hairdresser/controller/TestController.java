@@ -4,6 +4,7 @@ package com.pyshankov.hairdresser.controller;
 import com.pyshankov.hairdresser.domain.AbstractAccount;
 import com.pyshankov.hairdresser.domain.AccountType;
 import com.pyshankov.hairdresser.domain.FreelanceAccount;
+import com.pyshankov.hairdresser.domain.Location;
 import com.pyshankov.hairdresser.repository.AccountRepository;
 import com.pyshankov.hairdresser.security.mobile.service.MobileAuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class TestController {
     @RequestMapping(value = "mobile/api/hairdresser",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Iterable<AbstractAccount> getAvailableFreelancers(){
+    public Iterable<AbstractAccount> getAvailableFreelancers(Location currentUserLocation){
 //        inject current user location, and find all freelance account in specified range
         return accountRepository.findByAccountType(AccountType.FREELANCE);
     }

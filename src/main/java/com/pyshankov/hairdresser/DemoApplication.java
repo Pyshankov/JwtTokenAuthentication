@@ -29,10 +29,18 @@ public class DemoApplication {
 
 			AbstractAccount u1Account = new CustomerAccount("Pavel Andreevich","0975555156");
 			u1Account.setLocation(new Location("50.4652748","30.4620194"));
-			AbstractAccount u2Account = new FreelanceAccount("Vladimir Pavlovich","0973453123");
+
+			FreelanceAccount u2Account = new FreelanceAccount("Vladimir Pavlovich","0973453123");
 			u2Account.setLocation(new Location("50.4653748","30.4610194"));
-			AbstractAccount u3Account = new FreelanceAccount("Vladislav Pavlovich","0972222123");
+			u2Account.getServicesList().add("Стрижка");
+			u2Account.getServicesList().add("Маникюр");
+			u2Account.getServicesList().add("Массаж");
+
+			FreelanceAccount u3Account = new FreelanceAccount("Vladimir Sergeevich","0972222123");
+			u3Account.getServicesList().add("Маникюр");
+			u3Account.getServicesList().add("Массаж");
 			u3Account.setLocation(new Location("50.4655748","30.4627194"));
+
 			u1Account = accountRepository.save(u1Account);
 			u2Account = accountRepository.save(u2Account);
 			u2Account = accountRepository.save(u3Account);
