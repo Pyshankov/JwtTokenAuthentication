@@ -34,6 +34,7 @@ public class TestController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Iterable<AbstractAccount> getAvailableFreelancers(){
+//        inject current user location, and find all freelance account in specified range
         return accountRepository.findByAccountType(AccountType.FREELANCE);
     }
 

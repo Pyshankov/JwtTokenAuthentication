@@ -28,12 +28,11 @@ public class JwtUtils {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
 
-        LocalDateTime expiration = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         //token validity 10 years
-        expiration = expiration.plusYears(tokenValidityYears);
+        LocalDateTime expiration = now.plusYears(tokenValidityYears);
 
         Claims claims = Jwts.claims().setSubject(user.getUserName());
-        claims.put("userId", user.getId() + "");
         claims.put("role", user.getRole().toString());
         claims.setExpiration(Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()));
 
@@ -49,7 +48,6 @@ public class JwtUtils {
         claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwt).getBody();
 
         User user = new User();
-        user.setId(Long.valueOf(claims.get("userId").toString()));
         user.setRole(User.Role.valueOf(claims.get("role").toString()));
         user.setUserName(claims.getSubject());
         return user;

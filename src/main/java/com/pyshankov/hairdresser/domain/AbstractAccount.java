@@ -25,6 +25,9 @@ public abstract class AbstractAccount implements Account {
     @Column(name = "phone", nullable = false)
     protected String phone;
 
+    @Embedded
+    protected Location location;
+
     public AbstractAccount(){
     }
 
@@ -32,6 +35,14 @@ public abstract class AbstractAccount implements Account {
         this.accountType = accountType;
         this.fullName = fullName;
         this.phone = phone;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getPhone() {

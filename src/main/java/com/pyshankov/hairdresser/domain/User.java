@@ -19,6 +19,9 @@ public class User implements java.io.Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "email" ,unique = true, nullable = true)
+    protected String email;
+
     @Column(name = "role", nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -36,7 +39,20 @@ public class User implements java.io.Serializable {
         isActivated=false;
     }
 
+
     public User(){};
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
 
     public long getId() {
         return id;
