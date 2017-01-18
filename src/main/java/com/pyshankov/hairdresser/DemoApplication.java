@@ -3,6 +3,7 @@ package com.pyshankov.hairdresser;
 import com.pyshankov.hairdresser.domain.*;
 import com.pyshankov.hairdresser.repository.UserRepository;
 import com.pyshankov.hairdresser.repository.sequence.SequenceDao;
+import com.pyshankov.hairdresser.service.DistanceEvaluatorService;
 import com.pyshankov.hairdresser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -36,10 +37,10 @@ public class DemoApplication {
 			u3.setEmail("vlad@gmail.com");
 
 			AbstractAccount u1Account = new CustomerAccount("Pavel Andreevich", "0975555156");
-			u1Account.setLocation(new Location("50.4652748", "30.4620194"));
+			u1Account.setLocation(new Location(50.4652748, 30.4620194));
 
 			FreelanceAccount u2Account = new FreelanceAccount("Vladimir Pavlovich", "0973453123");
-			u2Account.setLocation(new Location("50.4653748", "30.4610194"));
+			u2Account.setLocation(new Location(50.4653748, 30.4610194));
 			u2Account.getServicesList().add("Стрижка");
 			u2Account.getServicesList().add("Маникюр");
 			u2Account.getServicesList().add("Массаж");
@@ -47,7 +48,7 @@ public class DemoApplication {
 			FreelanceAccount u3Account = new FreelanceAccount("Vladimir Sergeevich", "0972222123");
 			u3Account.getServicesList().add("Маникюр");
 			u3Account.getServicesList().add("Массаж");
-			u3Account.setLocation(new Location("50.4655748", "30.4627194"));
+			u3Account.setLocation(new Location(50.4655748, 30.4627194));
 
 			sequenceDao.insertZeroVal(User.COLLECTION_NAME);
 
@@ -63,7 +64,7 @@ public class DemoApplication {
 			System.out.println(u2);
 			System.out.println(u3);
 
-
+			System.out.println(DistanceEvaluatorService.length(u1.getAccount().getLocation(),u2.getAccount().getLocation()));
 		};
 	}
 

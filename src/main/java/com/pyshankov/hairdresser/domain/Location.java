@@ -8,29 +8,28 @@ public class Location {
 
     Location(){}
 
-    private String longitude;
+    private double longitude;
 
+    private double latitude;
 
-    private String latitude;
-
-    public Location(String longtitude, String latitude) {
-        this.longitude = longtitude;
+    public Location(double longitude, double latitude) {
+        this.longitude = longitude;
         this.latitude = latitude;
     }
 
-    public String getLongtitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongtitude(String longtitude) {
-        this.longitude = longtitude;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 }
