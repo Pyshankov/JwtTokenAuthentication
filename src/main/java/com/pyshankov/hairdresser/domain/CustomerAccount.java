@@ -1,12 +1,10 @@
 package com.pyshankov.hairdresser.domain;
 
-import javax.persistence.Entity;
 
 /**
  * Created by pyshankov on 16.10.2016.
  */
 
-@Entity
 public class CustomerAccount extends AbstractAccount {
 
     public CustomerAccount() {

@@ -1,24 +1,37 @@
 package com.pyshankov.hairdresser.repository;
 
 
+import com.pyshankov.hairdresser.domain.Account;
 import com.pyshankov.hairdresser.domain.User;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.util.List;
 
 /**
  * Created by pyshankov on 11.10.2016.
  */
-@RepositoryRestResource(collectionResourceRel = "user", path = "/api/user")
-public interface UserRepository extends CrudRepository<User,Long> {
 
+public interface UserRepository  {
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    User save(User user);
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    User findOne(Long id);
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    default Account findAccountByUserName(String userName){
+        return findByUserName(userName).getAccount();
+    }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     User findByUserName(@Param("name") String userName);
 
+    @PreAuthorize("hasRole('ROLE_USER')")
+    User findByEmail(@Param("email") String email);
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @Override
-    Iterable<User> findAll();
+    List<User> findAll();
 
 }

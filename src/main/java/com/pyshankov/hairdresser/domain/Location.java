@@ -1,20 +1,16 @@
 package com.pyshankov.hairdresser.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 
 /**
  * Created by pyshankov on 18.10.16.
  */
-@Embeddable
 public class Location {
 
     Location(){}
 
-    @Column
     private String longitude;
 
-    @Column
+
     private String latitude;
 
     public Location(String longtitude, String latitude) {

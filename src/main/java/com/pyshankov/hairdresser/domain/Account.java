@@ -5,8 +5,6 @@ package com.pyshankov.hairdresser.domain;
  */
 public interface Account {
 
-    long getId();
-
     AccountType getAccountType();
 
     String getFullName();

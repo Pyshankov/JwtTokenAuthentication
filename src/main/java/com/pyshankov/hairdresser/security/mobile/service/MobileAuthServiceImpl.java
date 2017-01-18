@@ -7,6 +7,7 @@ import com.pyshankov.hairdresser.security.mobile.domain.LoginUserCredentials;
 import com.pyshankov.hairdresser.security.mobile.repository.JwtTokenRepository;
 import com.pyshankov.hairdresser.security.mobile.repository.JwtUtils;
 import com.pyshankov.hairdresser.security.service.CustomUserDetailsService;
+import com.pyshankov.hairdresser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,7 +38,7 @@ public class MobileAuthServiceImpl implements  MobileApiAuthService {
     private JwtTokenRepository tokenRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userRepository;
 
 
     @Override

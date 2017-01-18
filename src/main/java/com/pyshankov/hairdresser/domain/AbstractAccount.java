@@ -1,31 +1,19 @@
 package com.pyshankov.hairdresser.domain;
 
-import javax.persistence.*;
 
 /**
  * Created by pyshankov on 16.10.2016.
  */
-@Entity
-@Table(name = "account")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 public abstract class AbstractAccount implements Account {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "id", unique = true, nullable = false)
-    protected long id;
 
-    @Column(name = "account_type", nullable = false)
-    @Enumerated(EnumType.STRING)
     protected AccountType accountType;
 
-    @Column(name = "full_name", nullable = false)
     protected String fullName;
 
-    @Column(name = "phone", nullable = false)
     protected String phone;
 
-    @Embedded
     protected Location location;
 
     public AbstractAccount(){
@@ -36,7 +24,7 @@ public abstract class AbstractAccount implements Account {
         this.fullName = fullName;
         this.phone = phone;
     }
-
+    @Override
     public Location getLocation() {
         return location;
     }
@@ -54,11 +42,6 @@ public abstract class AbstractAccount implements Account {
     }
 
     @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
     public AccountType getAccountType() {
         return accountType;
     }
@@ -66,10 +49,6 @@ public abstract class AbstractAccount implements Account {
     @Override
     public String getFullName() {
         return fullName;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setAccountType(AccountType accountType) {

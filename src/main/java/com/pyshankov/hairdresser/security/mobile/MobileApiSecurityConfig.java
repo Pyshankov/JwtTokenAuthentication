@@ -48,8 +48,8 @@ public class MobileApiSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
-    @Bean
-    public BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public BCryptPasswordEncoder encoder(){
+//        return new BCryptPasswordEncoder();
+//    }
 }

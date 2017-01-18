@@ -1,40 +1,46 @@
 package com.pyshankov.hairdresser.domain;
 
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by pyshankov on 11.10.2016.
  */
-@Entity
+@Document(collection = User.COLLECTION_NAME)
 public class User implements java.io.Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true, nullable = false)
-    private long id;
 
-    @Column(name = "username", unique = true, nullable = false, length = 20)
+    public final static String COLLECTION_NAME = "user";
+
+    @Id
+    private Long id;
+
+//    @Column(name = "username", unique = true, nullable = false, length = 20)
+    @Indexed
     private String userName;
 
-    @Column(name = "password", nullable = false)
+//    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email" ,unique = true, nullable = true)
+//    @Column(name = "email" ,unique = true, nullable = true)
+    @Indexed
     protected String email;
 
-    @Column(name = "role", nullable = false, length = 10)
-    @Enumerated(EnumType.STRING)
+//    @Column(name = "role", nullable = false, length = 10)
+//    @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "isActivated",nullable = false)
+//    @Column(name = "isActivated",nullable = false)
     private boolean isActivated;
 
-    private long accountId;
+    private AbstractAccount account;
 
     public User(String userName, String password){
         this.userName=userName;
         this.password=password;
-        id=-1;
+        id=-1L;
         role= Role.USER;
         isActivated=false;
     }
@@ -50,15 +56,11 @@ public class User implements java.io.Serializable {
         this.email = email;
     }
 
-    public void setAccountId(long accountId) {
-        this.accountId = accountId;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,12 +96,12 @@ public class User implements java.io.Serializable {
         isActivated = activated;
     }
 
-    public long getAccountId() {
-        return accountId;
+    public AbstractAccount getAccount() {
+        return account;
     }
 
-    public void setAccount(long accountId) {
-        this.accountId = accountId;
+    public void setAccount(AbstractAccount account) {
+        this.account = account;
     }
 
     public enum Role{
