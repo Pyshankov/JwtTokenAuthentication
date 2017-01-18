@@ -23,7 +23,7 @@ public class DemoApplication {
 
 
 	@Bean
-	public CommandLineRunner demo(UserService repository, SequenceDao sequenceDao) {
+	public CommandLineRunner demo(UserService repository, SequenceDao sequenceDao,UserRepository userRepository) {
 		return (args) -> {
 			User u1 = new User("pyshankov", "123321");
 			u1.setEmail("pyshankov@gmail.com");
@@ -65,6 +65,8 @@ public class DemoApplication {
 			System.out.println(u3);
 
 			System.out.println(DistanceEvaluatorService.length(u1.getAccount().getLocation(),u2.getAccount().getLocation()));
+
+			System.out.println(userRepository.findAccountsByAccountType(AccountType.FREELANCE));
 		};
 	}
 

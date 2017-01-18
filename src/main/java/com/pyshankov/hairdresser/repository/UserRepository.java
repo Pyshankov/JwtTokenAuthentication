@@ -1,7 +1,9 @@
 package com.pyshankov.hairdresser.repository;
 
 
+import com.pyshankov.hairdresser.domain.AbstractAccount;
 import com.pyshankov.hairdresser.domain.Account;
+import com.pyshankov.hairdresser.domain.AccountType;
 import com.pyshankov.hairdresser.domain.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,5 +35,8 @@ public interface UserRepository  {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<User> findAll();
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    List<AbstractAccount> findAccountsByAccountType(AccountType type);
 
 }

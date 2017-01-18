@@ -1,5 +1,7 @@
 package com.pyshankov.hairdresser.repository;
 
+import com.pyshankov.hairdresser.domain.AbstractAccount;
+import com.pyshankov.hairdresser.domain.AccountType;
 import com.pyshankov.hairdresser.domain.User;
 import com.pyshankov.hairdresser.repository.sequence.SequenceDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by pyshankov on 1/18/17.
@@ -47,5 +50,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> findAll() {
         return mongoOperations.findAll(User.class);
+    }
+
+    @Override
+    public List<AbstractAccount> findAccountsByAccountType(AccountType type) {
+        return mongoOperations.find(Query.query(Criteria.where("account.accountType").is(type.toString())),User.class).stream().map(User::getAccount).collect(Collectors.toList());
     }
 }
