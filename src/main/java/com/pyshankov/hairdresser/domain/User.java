@@ -35,7 +35,7 @@ public class User implements java.io.Serializable {
 //    @Column(name = "isActivated",nullable = false)
     private boolean isActivated;
 
-    private AbstractAccount account;
+    private Account account;
 
     public User(String userName, String password){
         this.userName=userName;
@@ -96,11 +96,11 @@ public class User implements java.io.Serializable {
         isActivated = activated;
     }
 
-    public AbstractAccount getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(AbstractAccount account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 

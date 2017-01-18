@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Created by pyshankov on 11.10.2016.
@@ -18,6 +20,9 @@ public interface UserRepository  {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     User save(User user);
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    void update(User user);
 
     @PreAuthorize("hasRole('ROLE_USER')")
     User findOne(Long id);
@@ -38,5 +43,8 @@ public interface UserRepository  {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     List<AbstractAccount> findAccountsByAccountType(AccountType type);
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    List<AbstractAccount> findAccountsByAccountType(AccountType type, Predicate<AbstractAccount> filterFunction);
 
 }

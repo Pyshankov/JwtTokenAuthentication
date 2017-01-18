@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -30,6 +32,11 @@ public class UserRepositoryImpl implements UserRepository {
         user.setId(sequenceDao.getNextSequenceId(User.COLLECTION_NAME));
         mongoOperations.save(user);
      return user;
+    }
+
+    @Override
+    public void update(User user){
+        mongoOperations.save(user);
     }
 
     @Override
@@ -54,6 +61,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<AbstractAccount> findAccountsByAccountType(AccountType type) {
-        return mongoOperations.find(Query.query(Criteria.where("account.accountType").is(type.toString())),User.class).stream().map(User::getAccount).collect(Collectors.toList());
+        return findAccountsByAccountType(type, (account)->true);
     }
+
+    @Override
+    public List<AbstractAccount> findAccountsByAccountType(AccountType type, Predicate<AbstractAccount> filterFunction) {
+        return mongoOperations.find(Query.query(Criteria.where("account.accountType").is(type.toString())),User.class).stream().map(User::getAccount).filter(filterFunction).collect(Collectors.toList());
+    }
+
 }

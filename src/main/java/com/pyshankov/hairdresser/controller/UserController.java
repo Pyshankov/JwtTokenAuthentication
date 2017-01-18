@@ -4,6 +4,7 @@ package com.pyshankov.hairdresser.controller;
 import com.pyshankov.hairdresser.domain.AbstractAccount;
 import com.pyshankov.hairdresser.domain.AccountType;
 import com.pyshankov.hairdresser.domain.Location;
+import com.pyshankov.hairdresser.repository.UserRepository;
 import com.pyshankov.hairdresser.security.mobile.service.MobileAuthServiceImpl;
 import com.pyshankov.hairdresser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by pyshankov on 16.10.2016.
  */
 @Controller
-public class TestController {
+public class UserController {
 
     @Autowired
-    private UserService accountRepository;
+    private UserRepository repository;
 
 
     @RequestMapping(value = "mobile/api/user",method = RequestMethod.GET)
@@ -36,7 +37,7 @@ public class TestController {
     @ResponseBody
     public Iterable<AbstractAccount> getAvailableFreelancers(Location currentUserLocation){
 //        inject current user location, and find all freelance account in specified range
-        return null;
+        return repository.findAccountsByAccountType(AccountType.FREELANCE);
     }
 
 

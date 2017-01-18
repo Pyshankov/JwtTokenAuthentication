@@ -1,10 +1,12 @@
 package com.pyshankov.hairdresser.service;
 
-import com.pyshankov.hairdresser.domain.User;
+import com.pyshankov.hairdresser.domain.*;
 import com.pyshankov.hairdresser.exception.UserConstraintException;
 import com.pyshankov.hairdresser.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by pyshankov on 1/18/17.
@@ -29,7 +31,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void update(User user) {
+        userRepository.update(user);
+    }
+
+    @Override
+    public void createAccountForUser(String userName,Account account){
+        User u = userRepository.findByUserName(userName);
+        if(u.getAccount()==null) {
+            throw new UserConstraintException("Account for: "+userName+" already created");
+        }
+        u.setAccount(account);
+        userRepository.update(u);
+    }
+
+    @Override
     public User findByUserName(String userName) {
         return userRepository.findByUserName(userName);
+    }
+
+    @Override
+    public List<AbstractAccount> findNearestAccountInRange(Location location, AccountType type, double km) {
+        return userRepository.findAccountsByAccountType(type,(account)-> km < DistanceEvaluatorService.length(location,account.getLocation()));
     }
 }
