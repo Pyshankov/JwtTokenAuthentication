@@ -1,6 +1,7 @@
 package com.pyshankov.hairdresser.repository;
 
 import com.pyshankov.hairdresser.domain.AbstractAccount;
+import com.pyshankov.hairdresser.domain.Account;
 import com.pyshankov.hairdresser.domain.AccountType;
 import com.pyshankov.hairdresser.domain.User;
 import com.pyshankov.hairdresser.repository.sequence.SequenceDao;
@@ -11,7 +12,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -60,13 +60,18 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<AbstractAccount> findAccountsByAccountType(AccountType type) {
+    public List<Account> findAccountsByAccountType(AccountType type) {
         return findAccountsByAccountType(type, (account)->true);
     }
 
     @Override
-    public List<AbstractAccount> findAccountsByAccountType(AccountType type, Predicate<AbstractAccount> filterFunction) {
-        return mongoOperations.find(Query.query(Criteria.where("account.accountType").is(type.toString())),User.class).stream().map(User::getAccount).filter(filterFunction).collect(Collectors.toList());
+    public List<Account> findAccountsByAccountType(AccountType type, Predicate<Account> filterFunction) {
+        return mongoOperations
+                .find(Query.query(Criteria.where("account.accountType").is(type.toString())),User.class)
+                .stream()
+                .map(User::getAccount)
+                .filter(filterFunction)
+                .collect(Collectors.toList());
     }
 
 }

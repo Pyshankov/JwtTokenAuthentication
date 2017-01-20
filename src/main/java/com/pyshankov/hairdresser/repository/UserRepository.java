@@ -42,9 +42,9 @@ public interface UserRepository  {
     List<User> findAll();
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    List<AbstractAccount> findAccountsByAccountType(AccountType type);
+    List<Account> findAccountsByAccountType(AccountType type);
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    List<AbstractAccount> findAccountsByAccountType(AccountType type, Predicate<AbstractAccount> filterFunction);
+    List<Account> findAccountsByAccountType(AccountType type, Predicate<Account> filterFunction);
 
 }

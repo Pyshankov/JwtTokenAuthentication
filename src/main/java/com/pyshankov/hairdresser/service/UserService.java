@@ -17,5 +17,5 @@ public interface UserService {
 
     void createAccountForUser(String userName,Account account);
 
-    List<AbstractAccount> findNearestAccountInRange(Location location, AccountType type, double km);
+    List<Account> findNearestAccountInRange(Location location, AccountType type, double km);
 }

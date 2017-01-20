@@ -38,6 +38,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createAccountForUser(String userName,Account account){
         User u = userRepository.findByUserName(userName);
+        if (u==null){
+            throw new UserConstraintException(userName+" does not exist");
+        }
         if(u.getAccount()==null) {
             throw new UserConstraintException("Account for: "+userName+" already created");
         }
@@ -51,7 +54,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<AbstractAccount> findNearestAccountInRange(Location location, AccountType type, double km) {
-        return userRepository.findAccountsByAccountType(type,(account)-> km < DistanceEvaluatorService.length(location,account.getLocation()));
+    public List<Account> findNearestAccountInRange(Location location, AccountType type, double km) {
+        return userRepository
+                .findAccountsByAccountType(type,(account)->  DistanceEvaluatorService.length(location,account.getLocation()) < km);
     }
 }

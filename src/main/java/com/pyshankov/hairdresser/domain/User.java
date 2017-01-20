@@ -1,6 +1,7 @@
 package com.pyshankov.hairdresser.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
@@ -22,6 +23,7 @@ public class User implements java.io.Serializable {
     private String userName;
 
 //    @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
 //    @Column(name = "email" ,unique = true, nullable = true)
@@ -34,7 +36,7 @@ public class User implements java.io.Serializable {
 
 //    @Column(name = "isActivated",nullable = false)
     private boolean isActivated;
-
+    @JsonIgnore
     private Account account;
 
     public User(String userName, String password){
@@ -109,4 +111,15 @@ public class User implements java.io.Serializable {
         USER
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", isActivated=" + isActivated +
+                '}';
+    }
 }
