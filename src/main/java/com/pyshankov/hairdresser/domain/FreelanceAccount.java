@@ -32,5 +32,11 @@ public class FreelanceAccount extends  AbstractAccount{
         servicesList = new ArrayList<>();
     }
 
-
+    @Override
+    public String toString() {
+        return "FreelanceAccount{" +
+                "servicesList=" + servicesList + " "+
+                super.toString()+
+                '}';
+    }
 }
