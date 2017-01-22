@@ -42,7 +42,6 @@ public class DemoApplication {
 			for (int i=0; i < 100 ; i++){
 				userService.save(DemoApplication.DataGenerator.generateNextFreelanceUser());
 			}
-
 		};
 	}
 
@@ -58,7 +57,7 @@ public class DemoApplication {
 
 
 
-	public static class DataGenerator{
+	static class DataGenerator{
 
 		private static Random random = new Random();
 

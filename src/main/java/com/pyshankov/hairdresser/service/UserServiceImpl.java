@@ -41,11 +41,23 @@ public class UserServiceImpl implements UserService {
         if (u==null){
             throw new UserConstraintException(userName+" does not exist");
         }
-        if(u.getAccount()==null) {
+        if(u.getAccount()!=null) {
             throw new UserConstraintException("Account for: "+userName+" already created");
         }
         u.setAccount(account);
         userRepository.update(u);
+    }
+
+    @Override
+    public void dropAccountForUser(String userName){
+        User u = userRepository.findByUserName(userName);
+        if (u==null){
+            throw new UserConstraintException(userName+" does not exist");
+        }
+        if(u.getAccount()!=null) {
+            u.setAccount(null);
+            userRepository.update(u);
+        }
     }
 
     @Override

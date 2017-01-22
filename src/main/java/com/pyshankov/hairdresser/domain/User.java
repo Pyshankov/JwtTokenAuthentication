@@ -36,7 +36,7 @@ public class User implements java.io.Serializable {
 
 //    @Column(name = "isActivated",nullable = false)
     private boolean isActivated;
-    @JsonIgnore
+    //@JsonIgnore
     private Account account;
 
     public User(String userName, String password){

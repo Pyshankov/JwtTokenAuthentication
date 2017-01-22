@@ -1,24 +1,21 @@
 package com.pyshankov.hairdresser.controller;
 
 
-import com.pyshankov.hairdresser.domain.AbstractAccount;
 import com.pyshankov.hairdresser.domain.Account;
 import com.pyshankov.hairdresser.domain.AccountType;
 import com.pyshankov.hairdresser.domain.Location;
+import com.pyshankov.hairdresser.domain.User;
 import com.pyshankov.hairdresser.dto.CreateAccountDto;
-import com.pyshankov.hairdresser.repository.UserRepository;
+import com.pyshankov.hairdresser.exception.UserConstraintException;
 import com.pyshankov.hairdresser.security.mobile.service.MobileAuthServiceImpl;
 import com.pyshankov.hairdresser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by pyshankov on 16.10.2016.
@@ -33,17 +30,16 @@ public class UserController {
     @RequestMapping(value = "mobile/api/user",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public String user(){
-           return MobileAuthServiceImpl.getCurrentPrincipal().getUsername();
+    public User user(){
+        return repository.findByUserName(MobileAuthServiceImpl.getCurrentPrincipal().getUsername());
     }
 
     @RequestMapping(value = "mobile/api/hairdresser",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Iterable<Account> getAvailableFreelancers(@RequestParam Double longitude, @RequestParam Double latitude, @RequestParam Double distance){
-        Location currentUserLocation = new Location(longitude,latitude);
-
+    public Iterable<Account> getAvailableFreelancers(@RequestParam Double longitude, @RequestParam Double latitude, @RequestParam(required = false,defaultValue = "10") Double distance){
 //        inject current user location, and find all freelance account in specified range
+        Location currentUserLocation = new Location(longitude,latitude);
         return repository.findNearestAccountInRange(currentUserLocation,AccountType.FREELANCE,distance);
     }
 
@@ -51,7 +47,24 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public void createAccountForUser(@PathVariable String userName, @RequestBody CreateAccountDto createAccountDto){
-         repository.createAccountForUser(userName,null);
+        repository.createAccountForUser(userName,createAccountDto.fromDto());
+    }
+
+    @RequestMapping(value = "mobile/api/dropAccount",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public void dropAccountForUser(){
+        repository.dropAccountForUser(MobileAuthServiceImpl.getCurrentPrincipal().getUsername());
+    }
+
+    @ExceptionHandler(UserConstraintException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseBody
+    public Map<String,String> handleUserConstraintException(UserConstraintException ex){
+        Map<String,String> body = new HashMap<>();
+        body.put("status",HttpStatus.CONFLICT.toString());
+        body.put("message",ex.getMessage());
+        return body;
     }
 
 

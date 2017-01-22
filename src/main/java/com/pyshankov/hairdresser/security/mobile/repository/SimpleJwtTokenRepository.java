@@ -1,13 +1,9 @@
 package com.pyshankov.hairdresser.security.mobile.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.StringRedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.StringRedisTemplate;
+
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,4 +29,10 @@ public class SimpleJwtTokenRepository implements JwtTokenRepository {
     public String deleteToken(String userName) {
         return tokens.remove(userName);
     }
+
+    @PostConstruct
+    public void postConstruct(){
+        tokens.put("pyshankov","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJweXNoYW5rb3YiLCJyb2xlIjoiQURNSU4iLCJleHAiOjE4MDA2Mjg1ODh9.bbC05vkFAHIXikeYs3p0owWDRDHuQqYpf7gHAGPWgx4");
+    }
+
 }

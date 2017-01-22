@@ -17,5 +17,7 @@ public interface UserService {
 
     void createAccountForUser(String userName,Account account);
 
+    void dropAccountForUser(String userName);
+
     List<Account> findNearestAccountInRange(Location location, AccountType type, double km);
 }
