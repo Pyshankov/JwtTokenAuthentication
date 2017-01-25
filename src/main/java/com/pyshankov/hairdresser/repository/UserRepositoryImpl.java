@@ -1,9 +1,9 @@
 package com.pyshankov.hairdresser.repository;
 
-import com.pyshankov.hairdresser.domain.AbstractAccount;
 import com.pyshankov.hairdresser.domain.Account;
 import com.pyshankov.hairdresser.domain.AccountType;
 import com.pyshankov.hairdresser.domain.User;
+import com.pyshankov.hairdresser.dto.ResponseAccountsDto;
 import com.pyshankov.hairdresser.repository.sequence.SequenceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
 /**
  * Created by pyshankov on 1/18/17.
  */
@@ -73,5 +72,34 @@ public class UserRepositoryImpl implements UserRepository {
                 .filter(filterFunction)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ResponseAccountsDto findAccountsByAccountType(AccountType type, Predicate<Account> filterFunction , int offset, int limit) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("account.accountType").is(type.toString()));
+        long count = mongoOperations.find(query,User.class)
+                .stream()
+                .map(User::getAccount)
+                .filter(filterFunction)
+                .count();
+
+        if(limit==0) {
+            limit = (int) count;
+        }
+//        query.skip(offset);
+//        query.limit(limit);
+
+        List<Account> result = mongoOperations
+                .find(query,User.class)
+                .stream()
+                .map(User::getAccount)
+                .filter(filterFunction)
+                .skip(offset)
+                .limit(limit)
+                .collect(Collectors.toList());
+
+        return new ResponseAccountsDto(result,count,offset,result.size());
+    }
+
 
 }

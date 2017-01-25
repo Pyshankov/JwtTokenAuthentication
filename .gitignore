@@ -1,3 +1,4 @@
 .idea
 *.iml
 target/
+key_to_amazon.pem

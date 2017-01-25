@@ -1,6 +1,7 @@
 package com.pyshankov.hairdresser.service;
 
 import com.pyshankov.hairdresser.domain.*;
+import com.pyshankov.hairdresser.dto.ResponseAccountsDto;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface UserService {
     void dropAccountForUser(String userName);
 
     List<Account> findNearestAccountInRange(Location location, AccountType type, double km);
+
+    ResponseAccountsDto findNearestAccountInRange(Location location, AccountType type, double km, int offset, int limit);
 }

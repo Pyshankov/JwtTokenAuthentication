@@ -41,13 +41,15 @@ public class DemoApplicationTests {
 
 	@Before
 	public void before(){
+		mongoTemplate.getDb().dropDatabase();
+
 		sequenceDao.insertZeroVal(User.COLLECTION_NAME);
 		User me = DemoApplication.DataGenerator.createCustomerUser("pyshankov","Pavel Andreevich");
 		User me2 = DemoApplication.DataGenerator.createCustomerUser("vlad","Vladislav Victorovich");
 		userService.save(me);
 		userService.save(me2);
 
-		for (int i=0; i < 10000 ; i++){
+		for (int i=0; i < 100 ; i++){
 			userService.save(DemoApplication.DataGenerator.generateNextFreelanceUser());
 		}
 
@@ -63,5 +65,11 @@ public class DemoApplicationTests {
 		System.out.println(userService.findNearestAccountInRange(new Location(50.4652748, 30.4620194), AccountType.FREELANCE,10));
 		System.out.println(userService.findNearestAccountInRange(new Location(50.4652748, 30.4620194), AccountType.FREELANCE,10).size());
 	}
+
+	@Test
+	public void yest2(){
+		userService.findNearestAccountInRange(new Location(50, 30), AccountType.FREELANCE,100,10,10);
+	}
+
 
 }

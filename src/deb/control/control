@@ -1,0 +1,8 @@
+Package: /
+Version: 1.0
+Section: misc
+Priority: low
+Architecture: all
+Description: web app
+Maintainer: pyshankov@gmail.org
+Depends: default-jre | java8-runtime

@@ -35,13 +35,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
-
-		<!--<dependency>-->
-			<!--<groupId>de.flapdoodle.embed</groupId>-->
-			<!--<artifactId>de.flapdoodle.embed.mongo</artifactId>-->
-		<!--</dependency>-->
-
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -79,6 +72,19 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<artifactId>jdeb</artifactId>
+				<groupId>org.vafer</groupId>
+				<version>0.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>deb</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

@@ -1,7 +1,9 @@
 package com.pyshankov.hairdresser.service;
 
 import com.pyshankov.hairdresser.domain.*;
+import com.pyshankov.hairdresser.dto.ResponseAccountsDto;
 import com.pyshankov.hairdresser.exception.UserConstraintException;
+import com.pyshankov.hairdresser.exception.ValidationException;
 import com.pyshankov.hairdresser.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,4 +72,14 @@ public class UserServiceImpl implements UserService {
         return userRepository
                 .findAccountsByAccountType(type,(account)->  DistanceEvaluatorService.length(location,account.getLocation()) < km);
     }
+
+    @Override
+    public ResponseAccountsDto findNearestAccountInRange(Location location, AccountType type, double km, int offset, int limit){
+        return userRepository
+                .findAccountsByAccountType(type,(account)->  DistanceEvaluatorService.length(location,account.getLocation()) < km,
+                        offset,
+                        limit);
+
+    }
+
 }
