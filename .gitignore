@@ -1,4 +1,5 @@
 .idea
 *.iml
-target/
+**/target/
+**/build/
 key_to_amazon.pem
