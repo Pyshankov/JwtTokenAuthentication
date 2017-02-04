@@ -11,4 +11,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Log in </string>
     <string name="search">Log in </string>
+    <string name="login">Login</string>
+    <string name="password">password</string>
+    <string name="user_name">user name</string>
+    <string name="emptyString"></string>
 </resources>
