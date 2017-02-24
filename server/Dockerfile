@@ -4,7 +4,7 @@ MAINTAINER Pavel Marchenko <pyshankov@gmail.com>
 
 CMD ["/usr/bin/mvn", "clean", "package", "-DskipTests"]
 
-ADD ./target/server-1.0-SNAPSHOT.jar /server/server-1.0-SNAPSHOT.jar
+ADD ./server/target/server-1.0-SNAPSHOT.jar /server/server-1.0-SNAPSHOT.jar
 CMD ["java", "-Xmx200m", "-jar", "/server/auth-service.jar"]
 
 EXPOSE 8080
