@@ -6,10 +6,8 @@
 	<artifactId>server</artifactId>
 	<packaging>jar</packaging>
 
-
 	<name>hairdresser-server</name>
 	<description></description>
-
 	<parent>
 		<artifactId>hairdresser</artifactId>
 		<groupId>com.pyshankov</groupId>
@@ -17,9 +15,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-
 	<dependencies>
-
 		<dependency>
 			<groupId>com.pyshankov.hairdresser</groupId>
 			<artifactId>dto</artifactId>
@@ -85,19 +81,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>jdeb</artifactId>
-				<groupId>org.vafer</groupId>
-				<version>0.3</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>deb</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>1.4.4.RELEASE</version>
@@ -108,11 +91,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>1.0.0</version>
 			</plugin>
 		</plugins>
 	</build>
